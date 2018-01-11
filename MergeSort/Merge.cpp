@@ -27,15 +27,10 @@ int main()
 	int *p;						//for sorting
 	p = (int*)malloc(n * sizeof(int));
 
-	int* f = (int*)malloc(n * sizeof(int)); //for test
-
 	for (int i = 0; i < n; i++)
 	{
 		p[i] = rand() % 100;
 	}
-
-	for (int i = 0; i < n; i++) //for test
-		f[i] = p[i];
 
 	int left = 0, right = n;
 
@@ -68,7 +63,6 @@ int main()
 	testFo();
 
 	free(p);
-	free(f);
 	return 0;
 }
 
