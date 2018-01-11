@@ -1,7 +1,14 @@
 #include <stdio.h>
 #include <malloc.h>
 #include <random>
+#include <iostream>
 
+using namespace std;
+
+void testF();
+void testS();
+void testT();
+void testFo();
 
 
 
@@ -9,7 +16,9 @@ void merge(int *p, int left, int right); //merger
 
 void merge_br(int *p, int left, int right); //splitting
 
-void test(int *arr_init, int *arr_sorted,int n);
+
+
+
 
 int main()
 {
@@ -42,7 +51,21 @@ int main()
 	for (int i = 0; i < n; i++)
 		printf(" %d", p[i]);
 
-	test(f, p, n);
+	// 5 элементов в обратном порядке
+		cout << endl << "Test 1:" << endl;
+	testF();
+
+	//5 одинаковых элементов
+	cout << endl << "Test 2:" << endl;
+	testS();
+
+	//пустой массив
+	cout << endl << "Test 3:" << endl;
+	testT();
+
+	//просто массив из 5 элементов
+	cout << endl << "Test 4:" << endl;
+	testFo();
 
 	free(p);
 	free(f);
@@ -108,24 +131,89 @@ void merge_br(int *p, int left, int right)
 	merge(p, left, right);
 }
 
-void test(int *arr_init, int *arr_sorted, int n)
+
+
+void testF()
 {
-	uint32_t wrong_idx = 0;
-	bool correct_result = true;
-	merge_br(arr_init, 0, n);
-	for (int i = 0; i < n; i++)
+	int n = 5, x = 3;
+	int* p;
+	p = new int[n];
+
+	for (int i = 0; i < n; ++i)
 	{
-		if (arr_init[i] != arr_sorted[i])
-		{
-			correct_result = false;
-			wrong_idx = i;
-			break;
-		}
+		p[i] = x;
+		x--;
+		cout << p[i] << ' ';
 	}
 
-	if (!correct_result)
+	merge_br(p, 0,n);
+
+	cout << endl;
+
+	for (int i = 0; i < n; ++i)
 	{
-		printf("\nError at idx=%d, got %d, expected %d \n", wrong_idx, arr_init[wrong_idx], arr_sorted[wrong_idx]);
+		cout << p[i] << ' ';
 	}
-	else printf("\n\nProgram is correct!\n");
+
+	delete[]p;
+}
+
+void testS()
+{
+	int n = 5;
+	int* p;
+	p = new int[n];
+
+	for (int i = 0; i < n; ++i)
+	{
+		p[i] = 1;
+		cout << p[i] << ' ';
+	}
+
+	merge_br(p, 0, n);
+
+	cout << endl;
+
+	for (int i = 0; i < n; ++i)
+	{
+		cout << p[i] << ' ';
+	}
+
+	delete[]p;
+
+}
+
+void testT()
+{
+	int n = 5;
+	int* p;
+	p = new int[n];
+	merge_br(p, 0, n);
+	cout << endl;
+	delete[]p;
+}
+
+void testFo()
+{
+	int n = 5;
+	int* p;
+	p = new int[n];
+
+	for (int i = 0; i < n; ++i)
+	{
+		p[i] = rand() % 10;
+		cout << p[i] << ' ';
+	}
+
+	merge_br(p, 0, n);
+
+	cout << endl;
+
+	for (int i = 0; i < n; ++i)
+	{
+		cout << p[i] << ' ';
+	}
+
+	delete[]p;
+
 }
